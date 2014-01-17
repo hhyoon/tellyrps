@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /target/
+Disallow: .gitignore
