@@ -2,67 +2,107 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>TellyRPS | Home</title>
+    <title>Telly RPS | Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/jumbotron-narrow.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/coming-soon.css">
   </head>
 
 
   <body>
 
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="http://blog.rpstown.com/">Blog</a></li>
-        </ul>
-        <h3 class="text-muted">tellyrps</h3>
-      </div>
+    
 
-      <div class="jumbotron">
-        <h1>TellyRPS</h1>
-        <p class="lead">
-        TellyRPS is a Google TV app for Rock Paper Scissors.
-        
-        Please <a href="mailto:rpstown@gmail.com">contact us</a>
-        if you have any questions regarding 
-        the <code>TellyRPS</code> project.
-        </p>
-      </div>
+  <div id="coming-soon">
+    <h1>Telly RPS - Coming Soon</h1>
 
-      <div class="row marketing">
-        <div class="col-lg-12">
+    <p style="font-size:1.2em;">
+        <code>Telly RPS</code> is an Rock Paper Scissors app for Google TV. 
+        You can play RPS with your family 
+        in the whole new different way.
 
-          <h3>Coming Soon</h3>
-          <p>
-            <code>TellyRPS</code> is currently under development.
-            Please check back later.
-          </p>
+        Please provide your email address below, 
+        and we will keep you posted on our progress
+        (including the beta release).
+        <i>Coming soon...</i>
+    </p>
 
+    <form id="rps_signup_form" method="get" action="thanks.html">
+        <div id="subscribe">
+            <input id="rps_signup_email" type="email" placeholder="Enter your email address.">
+            <input type="submit" value="Submit">
+<!--
+            <textarea id="rps_signup_comment" placeholder="(Optional) comment" rows="3" cols="70"></textarea>
+-->
+            <div class="clear"></div>
         </div>
+    </form>
 
-      </div>
+    <div class="center">
+        <a href="https://twitter.com/tellyrps" title="Follow us on Twitter" class="twitter">tellyrps</a>
+        -
+        <a href="http://blog.rpstown.com/" title="RPS Town blog" class="tumblr">RPS Town</a>
+    </div>
 
-      <div class="footer">
-        <p>&copy; <a href="mailto:rpstown@gmail.com">Harry Y</a> 2013</p>
-      </div>
-
-    </div> <!-- /container -->
+  </div>
 
 
-    <!-- Bootstrap core JavaScript
+
+    <!-- Core JavaScript
     ================================================== -->
-    <script src="//code.jquery.com/jquery.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/debugutil-1.0.js"></script>
+    <script type="text/javascript" src="js/signuppad-fiveten-1.0.js"></script>
+    <script defer type="text/javascript" src="js/signupmanager-1.1.js"></script>
+
+    <script>
+    // "Init"
+    $(function() {
+        $("#rps_signup_email").focus().select();
+    	// Peeng?
+    	var fiveTenTimer = new fiveten.FiveTenTimer(4771, 3);
+    	fiveTenTimer.start();
+    });
+    </script>
+
+    <script> 
+    var successCallback = function() {
+        // window.alert("Thanks!");
+        window.location = "thanks.html";
+    };
+    var failureCallback = function() {
+        window.alert("Failed to save your email address. Please try again.");
+        // Stay on this page.
+    };
+    </script>
+    <script>
+    	var signupManager;
+    	var servicename = "Telly RPS";
+    	var launchname = "Initial pre-beta signup";
+    	var pageid = "home";
+    </script>
+    <script>
+    $(function() {
+    	signupManager = new webstoa.SignupManager(servicename, launchname, pageid);
+        signupManager.setSuccessCallback(successCallback);
+        signupManager.setFailureCallback(failureCallback);
+    });
+    </script>
+    <script> 
+    $(function() {
+        $("#rps_signup_form").submit( function(e) {
+            e.preventDefault();
+            var email = $("#rps_signup_email").val();
+            if(DEBUG_ENABLED) console.log("email = " + email);
+            // var comment = $("#rps_signup_comment").val();
+            // if(DEBUG_ENABLED) console.log("comment = " + comment);
+            signupManager.signup(email);
+            // signupManager.signup(email, comment);
+            // redirect, only if success..
+        });
+    });
+    </script>  
+    
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -70,11 +110,11 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-XXX', 'tellyrps.com');
+  ga('create', 'UA-47258462-8', 'tellyrps.com');
   ga('send', 'pageview');
-</script>  
+</script>
 
-  </body>
+</body>
 
 </html>
 
